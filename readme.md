@@ -12,7 +12,7 @@ Once successfully compiled, you can execute the output file using:
 
 ## Learning Resources
 
-- [Object oriented programming in C++](https://www.youtube.com/watch?v=wN0x9eZLix4)
+- [Object-oriented programming in C++](https://www.youtube.com/watch?v=wN0x9eZLix4)
 - [DSA full course for beginners](https://www.youtube.com/watch?v=8hly31xKli0)
 - [C++ roadmap](https://roadmap.sh/cpp)
 
