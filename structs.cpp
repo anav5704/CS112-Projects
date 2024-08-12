@@ -14,7 +14,7 @@ struct Minion {
 };
 
 int main(){
-    const int MINIONS = 3;
+    const int MINIONS = 4;
 
     Minion a;
     a.name = "Bob";
@@ -28,7 +28,16 @@ int main(){
     c.name = "Stuart";
     c.trait.name = "Cool";
 
-    const Minion minions[MINIONS] = {a, b, c};
+    Minion d;
+    Minion * minionPtr = &d;
+
+    cout << "Enter Minion name: ";
+    cin >> minionPtr->name;
+
+    cout << "Enter Minion trait: ";
+    cin >> (*minionPtr).trait.name;
+
+    const Minion minions[MINIONS] = {a, b, c, d};
 
     for(int i = 0; i < MINIONS; i++){
         cout << "Name: " << minions[i].name << endl;
