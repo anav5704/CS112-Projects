@@ -6,9 +6,24 @@ using namespace std;
 const int TOTAL_ASG = 5;
 const int CAPACITY = 10;
 
-void calculateCoursework(int assignmentMarks[][TOTAL_ASG], int mstMarks[], int coursework[], int size);
-void calculateTotal(int coursework[], int finalMarks[], int totalMarks[], int size);
-void printResults(string studentIds[], int coursework[], int totalMarks[], int size);
+struct Student {
+    string id;
+
+    int mstMark;
+    int assignmentMarks[TOTAL_ASG];
+    int finalMark;
+    int coursework;
+    int totalMark;
+    char grade;
+
+    void printResults(){
+        cout << setw(20) << id << setw(20) << coursework << setw(20) << totalMark << setw(20) << grade << endl;
+    }
+};
+
+void calculateCoursework(Student students[CAPACITY], int size);
+void calculateTotal(Student students[CAPACITY], int size);
+void printResults(Student students[CAPACITY], int size);
 char getGrade(int totalMark);
 string printLine(int length);
 
@@ -16,12 +31,7 @@ int main()
 {
     cout << left;
 
-    string studentIds[CAPACITY];
-    int assignmentMarks[CAPACITY][TOTAL_ASG];
-    int mstMarks[CAPACITY];
-    int finalMarks[CAPACITY];
-    int totalMarks[CAPACITY];
-    int coursework[CAPACITY];
+    Student students[CAPACITY];
     int size = 0;
 
     ifstream readFile;
@@ -40,58 +50,58 @@ int main()
 
         while (!readFile.eof())
         {
-            readFile >> studentIds[size];
+            readFile >> students[size].id;
 
             for (int i = 0; i < TOTAL_ASG; i++)
             {
                 // read all assignment marks
-                readFile >> assignmentMarks[size][i];
+                readFile >> students[size].assignmentMarks[i];
             }
 
             // read mst and final mark
-            readFile >> mstMarks[size];
-            readFile >> finalMarks[size];
+            readFile >> students[size].mstMark;
+            readFile >> students[size].finalMark;
 
             size++;
         }
     }
 
-    calculateCoursework(assignmentMarks, mstMarks, coursework, size);
-    calculateTotal(coursework, finalMarks, totalMarks, size);
-    printResults(studentIds, coursework, totalMarks, size);
+    calculateCoursework(students, size);
+    calculateTotal(students, size);
+    printResults(students, size);
 
     readFile.close();
 
     return 0;
 }
 
-void calculateCoursework(int assignmentMarks[][TOTAL_ASG], int mstMarks[], int coursework[], int size)
+void calculateCoursework(Student students[CAPACITY], int size)
 {
     for (int i = 0; i < size; i++)
     {
         // reset student coursework
-        coursework[i] = 0;
+        students[i].coursework = 0;
 
         for (int j = 0; j < TOTAL_ASG; j++)
         {
             // add all assignment marks
-            coursework[i] += assignmentMarks[i][j];
+            students[i].coursework += students[i].assignmentMarks[j];
         }
 
         // add mst mark
-        coursework[i] += mstMarks[i];
+        students[i].coursework += students[i].mstMark;
     }
 }
 
-void calculateTotal(int coursework[], int finalMarks[], int totalMarks[], int size)
+void calculateTotal(Student students[CAPACITY], int size)
 {
     for (int i = 0; i < size; i++)
     {
-        totalMarks[i] = coursework[i] + finalMarks[i];
+        students[i].totalMark = students[i].coursework + students[i].finalMark;
     }
 }
 
-void printResults(string studentIds[], int coursework[], int totalMarks[], int size)
+void printResults(Student students[CAPACITY], int size)
 {
     int failureCount = 0;
 
@@ -100,14 +110,15 @@ void printResults(string studentIds[], int coursework[], int totalMarks[], int s
 
     for (int i = 0; i < size; i++)
     {
-        char studentGrade = getGrade(totalMarks[i]);
+        char studentGrade = getGrade(students[i].totalMark);
+        students[i].grade =  studentGrade;
 
         if (studentGrade == 'D')
         {
             failureCount++;
         }
 
-        cout << setw(20) << studentIds[i] << setw(20) << coursework[i] << setw(20) << totalMarks[i] << setw(20) << studentGrade << endl;
+        students[i].printResults();
         cout << printLine(70) << endl;
     }
 
