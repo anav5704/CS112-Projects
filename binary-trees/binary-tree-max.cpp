@@ -31,29 +31,29 @@ class Tree
 public:
     Node *root;
 
-    int getMax(Node *node, int max)
+    void getMAX(Node *node, int &MAX)
     {
-        if (node->data > max)
+        if (node->data > MAX)
         {
-            max = node->data;
+            MAX = node->data;
         }
 
         if (node->left != NULL)
         {
-            max = getMax(node->left, max);
+            getMAX(node->left, MAX);
         }
 
         if (node->right != NULL)
         {
-            max = getMax(node->right, max);
+            getMAX(node->right, MAX);
         }
-
-        return max;
     }
 };
 
 int main()
 {
+    int MAX = 0;
+
     Tree *tree = new Tree;
     Node *root = new Node(1);
     Node *left = new Node(2);
@@ -63,7 +63,9 @@ int main()
     root->left = left;
     root->right = right;
 
-    cout << "Max: " << tree->getMax(root, 0) << endl;
+    tree->getMAX(root, MAX);
+
+    cout << "MAX: " << MAX << endl;
 
     delete tree;
 
