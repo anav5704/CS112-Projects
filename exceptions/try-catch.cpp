@@ -18,7 +18,7 @@ int main()
             throw zero;
         }
 
-        result = x / y;
+        cout << "Result: " << x / y << endl;
     }
 
     catch (double error)
@@ -29,8 +29,6 @@ int main()
             return 0;
         }
     }
-
-    cout << "Result: " << result << endl;
 
     return 0;
 }
