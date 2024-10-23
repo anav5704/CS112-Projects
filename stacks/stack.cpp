@@ -25,7 +25,7 @@ public:
         this->next = next;
     }
 
-    int getData()
+    T getData()
     {
         return data;
     }
@@ -45,7 +45,7 @@ public:
 
     ~Stack()
     {
-        while (head != NULL)
+        while (!isEmpty())
         {
             pop();
         }
@@ -63,6 +63,11 @@ public:
         Node<T> *temp = head;
         head = head->getNext();
         delete temp;
+    }
+
+    bool isEmpty() l
+    {
+        return head == NULL;
     }
 };
 

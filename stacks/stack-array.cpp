@@ -1,27 +1,27 @@
 #include <iostream>
 using namespace std;
 
-template <class Type>
+template <class T>
 class Stack
 {
 public:
     int size;
     int head;
-    Type *array;
+    T *array;
 
     Stack(int size)
     {
         this->size = size;
-        array = new Type[size];
+        array = new T[size];
         head = -1;
     }
 
-    bool isFull()
+    ~Stack()
     {
-        return head == (size - 1);
+        delete[] array;
     }
 
-    bool push(Type data)
+    bool push(T data)
     {
         if (isFull())
         {
@@ -39,8 +39,13 @@ public:
             return false;
         }
 
-        Type data = array[head--];
+        T data = array[head--];
         return true;
+    }
+
+    bool isFull()
+    {
+        return head == (size - 1);
     }
 };
 

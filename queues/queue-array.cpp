@@ -34,8 +34,6 @@ public:
 
         tailIndex = ++tailIndex % maxSize;
         currentSize++;
-
-        cout << "Head: " << headIndex << " Tail: " << tailIndex << endl;
     }
 
     void dequeue()
