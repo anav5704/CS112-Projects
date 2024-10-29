@@ -1,23 +1,24 @@
 #include <iostream>
 using namespace std;
 
-void TowersOfHanoi ( int disks, char from,char to, char spare )
+void hanoi(int disks, char from, char to, char spare)
 {
-    if(disks == 1){
-        cout << "Moved disk " << disks << " from stack " << from << " to stack " << to << endl;
-    }
-
-    else
+    if (disks > 0)
     {
-        TowersOfHanoi(disks - 1, from, spare, to);
-        cout << "Moved disk " << disks << " from stack " << from << " to stack " << to << endl;
-        TowersOfHanoi(disks - 1, spare, to, from);
+        // Move n-1 disks from 'from' peg to 'spare' peg using 'to' peg
+        hanoi(disks - 1, from, spare, to);
+
+        // Move nth disk from 'from' peg to 'to' peg
+        cout << "Move disk from " << from << " to " << to << endl;
+
+        // Move n-1 disks from 'spare' peg to 'to' peg using 'from' peg
+        hanoi(disks - 1, spare, to, from);
     }
 }
 
-
 int main()
 {
-      TowersOfHanoi(5,'F','T','S');
-      return 0;
+    hanoi(5, 'F', 'T', 'S');
+
+    return 0;
 }
