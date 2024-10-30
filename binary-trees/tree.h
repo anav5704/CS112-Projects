@@ -91,7 +91,12 @@ public:
             return 0;
         }
 
-        return (node->isLeaf() ? 1 : 0) + countLeaves(node->left) + countLeaves(node->right);
+        if (node->isLeaf())
+        {
+            return 1;
+        }
+
+        return countLeaves(node->left) + countLeaves(node->right);
     }
 
     int getMax(Node *node)
@@ -100,7 +105,6 @@ public:
         {
             return 0;
         }
-
         int max = node->getData();
 
         int left = getMax(node->getLeft());
@@ -128,8 +132,6 @@ public:
         min = right < min ? right : min;
 
         return min;
-
-        return min;
     }
 
     int getHeight(Node *node)
@@ -142,12 +144,18 @@ public:
         int left = getHeight(node->getLeft());
         int right = getHeight(node->getRight());
 
-        return 1 + (left > right ? left : right);
+        if (left > right)
+        {
+            return 1 + left;
+        }
+        else
+        {
+            return 1 + right;
+        }
     }
 
     int getSize(Node *node)
     {
-
         if (node == NULL)
         {
             return 0;
