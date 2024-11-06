@@ -65,7 +65,7 @@ public:
         delete temp;
     }
 
-    bool isEmpty() l
+    bool isEmpty()
     {
         return head == NULL;
     }
